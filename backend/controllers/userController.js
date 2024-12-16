@@ -84,7 +84,7 @@ export async function verifyEmail(req, res) {
         id: token.id,
       },
     });
-    res.redirect("/user/verified");
+    return res.redirect("http://localhost:5173/verified");
   } catch (error) {
     console.error("Error verifying email:", error);
     res.status(400).json({ error: "Invalid or expired token." });

@@ -40,10 +40,6 @@ router.post("/login", loginUser, authenticate);
 //Verify
 router.get("/verify/:id/:token", verifyEmail);
 
-router.get("/verified", (req, res) => {
-  res.render("./user/verify");
-});
-
 //CRUD
 router.get("/users/:id", getUserById);
 router.get("/users", getAllUsers);

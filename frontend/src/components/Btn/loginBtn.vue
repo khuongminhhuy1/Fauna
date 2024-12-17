@@ -16,13 +16,14 @@
 <script>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useToast } from 'vue-toastification'
 export default {
   name: 'loginBtn',
   setup() {
     const isLoggedIn = ref(false)
     const userName = ref('')
     const router = useRouter()
-
+    const toast = useToast()
     // Check authentication state on app load
     onMounted(() => {
       const user = localStorage.getItem('user')
@@ -44,6 +45,7 @@ export default {
       localStorage.setItem('isLoggedIn', 'false')
       isLoggedIn.value = false
       userName.value = ''
+      toast.success('Logged out successfully !')
       router.push('/')
     }
 

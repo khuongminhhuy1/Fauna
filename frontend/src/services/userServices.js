@@ -25,9 +25,7 @@ export const login = async (email, password, router) => {
         }),
       )
       localStorage.setItem('isLoggedIn', 'true')
-      setTimeout(function () {
-        toast.success('Login successfully !')
-      }, 2500)
+      toast.success('Login successfully !')
       router.push('/')
     } else {
       toast.error('Login failed: Invalid response from server.')

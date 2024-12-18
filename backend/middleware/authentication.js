@@ -2,35 +2,20 @@ import jwt from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
 
 export const authenticate = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) return res.status(401).json({ message: "Unauthorized" });
 
-  if (!token) return res.sendStatus(401); // If no token is present
+  try {
+    const decoded = jwt.verify(token, SECRET_KEY);
+    req.user = decoded; // Attach user info to the request
+    next();
+  } catch (error) {
+    res.status(403).json({ message: "Forbidden" });
+  }
+};
 
-  jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
-    if (err) return res.sendStatus(403); // Token not valid
-
-    try {
-      const user = await prisma.user.findUnique({
-        where: { email: email },
-      });
-
-      if (!user) return res.sendStatus(404);
-
-      req.user = user;
-
-      // Check if user is admin
-      if (user.role) {
-        req.role = "Admin";
-        res.redirect("/admin/dashboard");
-      } else {
-        req.role = "Costumer";
-        res.redirect("/");
-      }
-
-      next();
-    } catch (error) {
-      console.error("Error verifying user:", error);
-    }
-  });
+export const authorizeRole = (roles) => (req, res, next) => {
+  if (!roles.includes(req.user.role))
+    return res.status(403).json({ message: "Access denied" });
+  next();
 };

@@ -7,6 +7,7 @@ import { dirname } from "path";
 
 import userRoute from "./routes/userRoute.js";
 import categoryRoute from "./routes/categoryRoute.js";
+import productRoute from "./routes/productRoute.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -23,8 +24,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors({ credentials: true, origin: true }));
 
 //ROUTES SETUP
-app.use("/user", userRoute);
+app.use("/", userRoute);
 app.use("/category", categoryRoute);
+app.use("/product", productRoute);
 
 //START SERVER
 const port = process.env.PORT || 5555;

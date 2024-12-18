@@ -7,7 +7,9 @@ cloudinary.config({
   api_key: process.env.CLOUD_API_KEY,
   api_secret: process.env.CLOUD_API_SECRET,
 });
-
+const storage = multer.diskStorage({
+  destination: "./uploads",
+});
 // Set up multer with Cloudinary
 const fileFilter = (req, file, cb) => {
   if (file.mimetype.startsWith("image/")) {
@@ -22,4 +24,4 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB file size limit
 });
 
-module.exports = upload;
+export default upload;

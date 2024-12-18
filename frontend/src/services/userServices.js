@@ -7,7 +7,7 @@ const toast = useToast()
 
 export const login = async (email, password, router) => {
   try {
-    const response = await axios.post(`${api_url}/user/login`, {
+    const response = await axios.post(`${api_url}/login`, {
       email,
       password,
     })
@@ -37,7 +37,7 @@ export const login = async (email, password, router) => {
 }
 export const register = async (name, email, password, router) => {
   try {
-    const response = await axios.post(`${api_url}/user/register`, {
+    const response = await axios.post(`${api_url}/register`, {
       name,
       email,
       password,
@@ -50,5 +50,13 @@ export const register = async (name, email, password, router) => {
     toast.error(
       'Registration failed: ' + (error.response ? error.response.data.message : error.message),
     )
+  }
+}
+export const GetUsers = async () => {
+  try {
+    const response = await axios.get(`${api_url}/users`)
+    return response
+  } catch (error) {
+    toast.error(error.response ? error.response.data.message : error.message)
   }
 }

@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MainPage from '@/components/Main/MainPage.vue'
-import Verified from '@/components/Validation/Verified.vue'
-import Login from '@/components/User/Login.vue'
-import Register from '@/components/User/Register.vue'
+import UserVerify from '@/components/Validation/Verified.vue'
+import UserLogin from '@/components/User/UserLogin.vue'
+import UserRegister from '@/components/User/UserRegister.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,19 +16,19 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: Login,
+      component: UserLogin,
       meta: { noHeader: true },
     },
     {
       path: '/register',
       name: 'register',
-      component: Register,
+      component: UserRegister,
       meta: { noHeader: true },
     },
     {
       path: '/verified',
       name: 'verified',
-      component: Verified,
+      component: UserVerify,
       meta: { noHeader: false },
     },
   ],

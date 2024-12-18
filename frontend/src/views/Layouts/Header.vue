@@ -41,7 +41,7 @@
 <script>
 import loginBtn from '@/components/Btn/loginBtn.vue'
 export default {
-  name: 'Header',
+  name: 'MainHeader',
   components: { loginBtn },
 }
 </script>

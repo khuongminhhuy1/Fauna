@@ -176,7 +176,7 @@ import { register } from '@/services/userServices'
 import { useToast } from 'vue-toastification'
 import { useRouter } from 'vue-router'
 export default {
-  name: 'Register',
+  name: 'UserRegister',
   data() {
     return {
       name: '',

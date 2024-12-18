@@ -159,7 +159,7 @@ import { login } from '@/services/userServices'
 import { useRouter } from 'vue-router'
 
 export default {
-  name: 'Login',
+  name: 'UserLogin',
   data() {
     return {
       email: '',
@@ -173,7 +173,7 @@ export default {
   methods: {
     async login() {
       try {
-        const response = await login(this.email, this.password, this.router)
+        await login(this.email, this.password, this.router)
         this.$emit('login-success')
       } catch (error) {
         console.error('Login error:', error)

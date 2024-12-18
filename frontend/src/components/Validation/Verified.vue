@@ -3,6 +3,6 @@
 </template>
 <script>
 export default {
-  name: 'Verified',
+  name: 'UserVerify',
 }
 </script>

@@ -174,6 +174,8 @@ export default {
     async login() {
       try {
         await login(this.email, this.password, this.router)
+        const role = localStorage.getItem('role');
+        this.$router.push(role === 'Admin' ? '/admin' : '/');
         this.$emit('login-success')
       } catch (error) {
         console.error('Login error:', error)

@@ -12,45 +12,52 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: MainPage,
-      meta: { noHeader: false },
+      meta: { noHeader: false, layout: 'default' },
     },
     {
       path: '/login',
       name: 'login',
       component: UserLogin,
-      meta: { noHeader: true },
+      meta: { noHeader: true, layout: 'default' },
     },
     {
       path: '/register',
       name: 'register',
       component: UserRegister,
-      meta: { noHeader: true },
+      meta: { noHeader: true, layout: 'default' },
     },
     {
       path: '/verified',
       name: 'verified',
       component: UserVerify,
-      meta: { noHeader: false },
+      meta: { noHeader: false, layout: 'default' },
     },
     {
-      path: '/dashboard',
-      name: 'dashboard',
+      path: '/admin',
+      name: '/admin',
       component: AdminDashboard,
-      meta: { noHeader: false, requiresAuth: true, role: 'Admin' },
+      meta: { noHeader: false, requiresAuth: true, role: 'Admin', layout: 'admin' },
     },
   ],
 })
 
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('token')
-  const role = localStorage.getItem('role')
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'
+  const user = JSON.parse(localStorage.getItem('user') || '{}')
 
   if (to.meta.requiresAuth) {
-    if (!token) return next('/login')
-    if (to.meta.role && to.meta.role !== role) return next('/dashboard')
+    if (!isLoggedIn) {
+      // If not logged in, redirect to login
+      return next('/login')
+    }
+
+    if (to.meta.role && to.meta.role !== user.role) {
+      // If role doesn't match, redirect to unauthorized or home page
+      return next('/')
+    }
   }
 
-  next()
+  next() // Proceed to the route
 })
 
 export default router

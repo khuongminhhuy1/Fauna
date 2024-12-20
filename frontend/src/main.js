@@ -4,6 +4,7 @@ import router from './router'
 import Toast from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
 import './index.css'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const options = {
   // Toastification default options
@@ -26,3 +27,4 @@ const app = createApp(App)
 app.use(router)
 app.use(Toast, options)
 app.mount('#app')
+app.component('font-awesome-icon', FontAwesomeIcon)

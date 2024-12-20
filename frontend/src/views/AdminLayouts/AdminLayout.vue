@@ -3,7 +3,7 @@
     <AdminHeader />
     <div class="flex">
       <AdminSidebar />
-      <main class="p-4 w-full">
+      <main class="p-4 w-full h-screen overflow-y-auto">
         <div class="w-full flex flex-col justify-center items-center flex-grow">
           <div class="w-10/12">
             <slot name="body"></slot>

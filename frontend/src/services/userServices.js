@@ -60,3 +60,28 @@ export const GetUsers = async () => {
     toast.error(error.response ? error.response.data.message : error.message)
   }
 }
+export const GetUserById = async (id) => {
+  try {
+    const response = await axios.get(`${api_url}/user/${id}`)
+    return response
+  } catch (error) {
+    toast.error(error.response ? error.response.data.message : error.message)
+  }
+}
+
+export const UpdateUser = async (id) => {
+  try {
+    const response = await axios.put(`${api_url}/user/${id}`)
+    return response
+  } catch (error) {
+    toast.error(error.response ? error.response.data.message : error.message)
+  }
+}
+export const DeleteUser = async (id) => {
+  try {
+    const response = await axios.delete(`${api_url}/user/${id}`)
+    return response
+  } catch (error) {
+    toast.error(error.response ? error.response.data.message : error.message)
+  }
+}

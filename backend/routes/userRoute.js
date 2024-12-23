@@ -20,15 +20,15 @@ router.use((req, res, next) => {
 
 //register
 router.post("/register", createUser);
-//login
+//login  
 router.post("/login", loginUser, authenticate);
 //Verify
-router.get("/verify/:id/:token", verifyEmail);
+router.get("/user/verify/:id/:token", verifyEmail);
 
 //CRUD
 router.get("/user/:id", getUserById);
 router.get("/users", getAllUsers);
-router.put("/users/:id", updateUser);
-router.delete("/users/:id", deleteUser);
+router.put("/user/:id", updateUser);
+router.delete("/user/:id", deleteUser);
 
 export default router;

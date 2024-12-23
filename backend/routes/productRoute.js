@@ -2,6 +2,7 @@ import express from "express";
 const router = express.Router();
 import { PrismaClient } from "@prisma/client";
 import { constructUrl } from "../urlHelper.js";
+import { upload } from "../utils/fileUpload.js";
 import {
   createProduct,
   deleteProduct,
@@ -16,7 +17,7 @@ router.use((req, res, next) => {
 
 router.get("/", getAllProduct);
 router.get("/:id", getProductById);
-router.post("/create", createProduct);
+router.post("/create", upload, createProduct);
 router.delete("/:id", deleteProduct);
 
 export default router;

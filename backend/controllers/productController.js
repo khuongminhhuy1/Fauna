@@ -1,62 +1,40 @@
 import { PrismaClient } from "@prisma/client";
 import multer from "multer";
-import upload from "../utils/fileUpload.js";
+import { upload } from "../utils/fileUpload.js";
 import { v2 as cloudinary } from "cloudinary";
 
 const prisma = new PrismaClient();
 
 export async function createProduct(req, res) {
   try {
-    // Handle file upload using multer
-    upload(req, res, async (err) => {
-      // Handle multer errors
-      if (err instanceof multer.MulterError) {
-        return res.status(400).json({ error: err.message });
-      } else if (err) {
-        return res.status(500).json({ error: err.message });
-      }
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ error: "No files uploaded" });
+    }
 
-      // Check if a file was uploaded
-      if (!req.file) {
-        return res.status(400).json({ error: "No file uploaded" });
-      }
+    // Destructure product details from request body
+    const { name, categoryId, price, description } = req.body;
 
-      // Destructure product details from request body
-      const { name, categoryId, price, description } = req.body;
+    // Assuming you want to save the file URLs in your database (example with images)
+    const imageUrls = req.files.map((file) => file.path); // This is Cloudinary URL (accessible via 'file.path')
 
-      // Upload file to Cloudinary
-      const result = await cloudinary.uploader.upload(req.file.path, {
-        folder: "uploads",
-      });
-
-      // Create the product in the database
-      const categoryIdInt = parseInt(categoryId);
-      const priceFloat = parseFloat(price);
-      const newProduct = await prisma.product.create({
-        data: {
-          name,
-          categoryId: categoryIdInt,
-          price: priceFloat,
-          description,
-          image: result.secure_url, // Save the Cloudinary image URL
+    // Create the product in the database
+    const categoryIdInt = parseInt(categoryId);
+    const priceFloat = parseFloat(price);
+    const newProduct = await prisma.product.create({
+      data: {
+        name,
+        categoryId: categoryIdInt,
+        price: priceFloat,
+        description,
+        images: {
+          create: imageUrls.map((url) => ({ url })),
         },
-      });
-
-      // Update the total count for the category
-      await prisma.category.update({
-        where: { id: categoryIdInt },
-        data: {
-          total: {
-            increment: 1, // Increment the total count by 1
-          },
-        },
-      });
-
-      // Respond with success message
-      res.status(200).json(newProduct);
+      },
     });
+
+    // Respond with the created product
+    res.status(201).json(newProduct);
   } catch (error) {
-    // Handle errors
     console.error("Error creating product:", error);
     res.status(500).send(error.message);
   }
@@ -68,15 +46,21 @@ export async function updateProduct(req, res) {
 }
 
 export async function deleteProduct(req, res) {
-  const id = req.params;
+  const id = parseInt(req.params.id);
   // Find the product's categoryId before deleting
   const product = await prisma.product.findUnique({
     where: { id: id },
-    select: { categoryId: true },
+    select: { categoryId: true, images: true },
   });
   if (!product) {
     throw new Error("Product not found");
   }
+
+  await prisma.image.deleteMany({
+    where: {
+      productId: id, // Delete images associated with this product
+    },
+  });
 
   // Delete the product
   await prisma.product.delete({

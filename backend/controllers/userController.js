@@ -41,7 +41,7 @@ export async function createUser(req, res) {
     });
     const message = `
 <p>Hello ${newUser.name},</p>
-<p>Please click the link below to verify the account you just created in Virdance</p>
+<p>Please click the link below to verify the account you just created in Fauna Shop</p>
 <p><a href="${process.env.APP_URL}/user/verify/${newUser.id}/${token}">Verify Account</a></p>
 <p>Thank you and welcome to our website!</p>
 `;
@@ -184,7 +184,7 @@ export async function deleteUser(req, res) {
     await prisma.user.delete({
       where: { id: parseInt(id) },
     });
-    res.status(204).send("User Deleted");
+    res.status(200).send("User Deleted");
   } catch (error) {
     res.status(500).send(error.message);
   }

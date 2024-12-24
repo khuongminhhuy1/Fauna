@@ -13,7 +13,7 @@
         <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
           <!-- Sidebar content here -->
           <li><router-link to="/admin/users">Users</router-link></li>
-          <li><a>Sidebar Item 2</a></li>
+          <li><router-link to="/admin/categories">Categories</router-link></li>
         </ul>
       </div>
     </div>

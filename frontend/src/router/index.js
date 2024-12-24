@@ -5,6 +5,8 @@ import UserLogin from '@/components/User/UserLogin.vue'
 import UserRegister from '@/components/User/UserRegister.vue'
 import AdminDashboard from '@/components/Admin/AdminDashboard.vue'
 import ShowUsers from '@/components/Admin/User/ShowUsers.vue'
+import ShowCategory from '@/components/Admin/Category/ShowCategory.vue'
+import ShowProduct from '@/components/Admin/Product/ShowProduct.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -43,6 +45,18 @@ const router = createRouter({
       path: '/admin/users',
       name: '/admin/users',
       component: ShowUsers,
+      meta: { noHeader: false, requiresAuth: true, role: 'Admin', layout: 'admin' },
+    },
+    {
+      path: '/admin/categories',
+      name: '/admin/categories',
+      component: ShowCategory,
+      meta: { noHeader: false, requiresAuth: true, role: 'Admin', layout: 'admin' },
+    },
+    {
+      path: '/admin/products',
+      name: '/admin/products',
+      component: ShowProduct,
       meta: { noHeader: false, requiresAuth: true, role: 'Admin', layout: 'admin' },
     },
   ],

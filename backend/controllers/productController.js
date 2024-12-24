@@ -31,7 +31,14 @@ export async function createProduct(req, res) {
         },
       },
     });
-
+    await prisma.category.update({
+      where: { id: categoryIdInt },
+      data: {
+        total: {
+          increment: 1, // Increment the total count by 1
+        },
+      },
+    });
     // Respond with the created product
     res.status(201).json(newProduct);
   } catch (error) {
@@ -46,36 +53,59 @@ export async function updateProduct(req, res) {
 }
 
 export async function deleteProduct(req, res) {
-  const id = parseInt(req.params.id);
-  // Find the product's categoryId before deleting
-  const product = await prisma.product.findUnique({
-    where: { id: id },
-    select: { categoryId: true, images: true },
-  });
-  if (!product) {
-    throw new Error("Product not found");
-  }
+  try {
+    const id = parseInt(req.params.id); // Get the product ID from the URL parameters
 
-  await prisma.image.deleteMany({
-    where: {
-      productId: id, // Delete images associated with this product
-    },
-  });
-
-  // Delete the product
-  await prisma.product.delete({
-    where: { id: id },
-  });
-  res.status(201).send("Product Deleted");
-  // Update the total count for the category
-  await prisma.category.update({
-    where: { id: product.categoryId },
-    data: {
-      total: {
-        decrement: 1, // Decrement the total count by 1
+    // Find the product's categoryId and related images before deleting
+    const product = await prisma.product.findUnique({
+      where: { id: id },
+      select: {
+        categoryId: true,
+        images: true, // Get the related images
       },
-    },
-  });
+    });
+
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    // Delete all the images related to the product
+    await prisma.image.deleteMany({
+      where: {
+        productId: id, // Delete images associated with this product
+      },
+    });
+
+    // Delete the product itself
+    await prisma.product.delete({
+      where: { id: id },
+    });
+
+    // Fetch the current total count for the category
+    const category = await prisma.category.findUnique({
+      where: { id: product.categoryId },
+      select: { total: true },
+    });
+
+    if (category.total > 0) {
+      // Update the total count for the category only if it's greater than 0
+      await prisma.category.update({
+        where: { id: product.categoryId },
+        data: {
+          total: {
+            decrement: 1, // Decrement the total count by 1
+          },
+        },
+      });
+    }
+
+    res
+      .status(200)
+      .json({ message: "Product and related images deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting product:", error);
+    res.status(500).json({ error: error.message });
+  }
 }
 export async function getAllProduct(req, res) {
   try {

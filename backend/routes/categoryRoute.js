@@ -19,7 +19,7 @@ router.use((req, res, next) => {
 router.get("/", showCategory);
 router.get("/:id", showSingleCategory);
 router.post("/create", createCategory);
-router.put("/:id/edit", updateCategory);
-router.delete("/:id/delete", deleteCategory);
+router.put("/:id", updateCategory);
+router.delete("/:id", deleteCategory);
 
 export default router;

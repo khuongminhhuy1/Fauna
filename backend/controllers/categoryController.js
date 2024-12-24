@@ -3,7 +3,6 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-
 export async function createCategory(req, res) {
   const { name, total } = req.body;
   try {
@@ -39,7 +38,7 @@ export async function deleteCategory(req, res) {
     await prisma.category.delete({
       where: { id: parseInt(id) },
     });
-    res.status(204).send("Category Deleted");
+    res.status(201).send("Category Deleted");
   } catch (error) {
     res.status(500).send(error.message);
   }

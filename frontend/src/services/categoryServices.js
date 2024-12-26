@@ -13,14 +13,13 @@ export const GetCategories = async () => {
   }
 }
 
-export const AddCategory = async (name, router) => {
+export const AddCategory = async (name) => {
   try {
     const response = await axios.post(`${api_url}/category`, {
       name,
     })
     if (response.data) {
       toast.success('Category added successfully!')
-      router.push('/admin/categories')
     }
   } catch (error) {
     toast.error(
@@ -38,15 +37,14 @@ export const getSingleCategory = async (id) => {
       'Fetching category failed: ' + (error.response ? error.response.data.message : error.message),
     )
   }
-} 
-export const UpdateCategory = async (id, name, router) => {
+}
+export const UpdateCategory = async (id, name) => {
   try {
     const response = await axios.put(`${api_url}/category/${id}`, {
       name,
     })
     if (response.data) {
       toast.success('Category updated successfully!')
-      router.push('/admin/categories')
     }
   } catch (error) {
     toast.error(
@@ -55,12 +53,11 @@ export const UpdateCategory = async (id, name, router) => {
   }
 }
 
-export const DeleteCategory = async (id, router) => {
+export const DeleteCategory = async (id) => {
   try {
     const response = await axios.delete(`${api_url}/category/${id}`)
     if (response.data) {
       toast.success('Category deleted successfully!')
-      router.go()
     }
   } catch (error) {
     toast.error(

@@ -3,7 +3,7 @@
     <div class="py-4 flex flex-row justify-between items-center">
       <h1 class="text-3xl">Users List</h1>
       <router-link to="/register"
-        ><button class="btn"><i class="fa-solid fa-plus"></i> Create New User</button></router-link
+        ><button class="btn"><i class="fa-solid fa-plus"></i></button></router-link
       >
     </div>
     <table class="table w-full">

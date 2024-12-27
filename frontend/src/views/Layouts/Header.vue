@@ -1,12 +1,12 @@
 <template lang="">
   <div
-    class="navbar bg-transparent backdrop-blur-sm sticky top-0 bg-opacity-50 border-b border-gray-300"
+    class="navbar bg-transparent backdrop-blur-sm sticky top-0 bg-opacity-50 border-b border-gray-300 "
   >
     <div class="navbar-start">
       <HeaderSideBar />
     </div>
     <div class="navbar-center">
-      <a class="btn btn-ghost text-xl">Virdance</a>
+      <img src="../../../public/images/logo.png" alt="Go back to main page" class="w-[150px]" />
     </div>
     <div class="navbar-end">
       <loginBtn />

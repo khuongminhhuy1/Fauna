@@ -1,17 +1,31 @@
-<template lang="">
-  <div>
+<template>
+  <div class="h-screen flex flex-col">
+    <!-- Header -->
     <AdminHeader :toggleSidebar="toggleSidebar" />
 
-    <div class="flex">
-      <AdminSideBar :isSidebarOpen="isSidebarOpen" />
-      <main class="p-4 w-full h-screen overflow-y-auto">
-        <div class="w-full flex flex-col justify-center items-center flex-grow">
+    <!-- Main Content -->
+    <div class="flex flex-grow h-full">
+      <!-- Sidebar -->
+      <AdminSideBar
+        :isSidebarOpen="isSidebarOpen"
+        class="transition-all duration-300"
+        :class="[isSidebarOpen ? 'w-2/12' : 'w-0', 'md:w-2/12']"
+      />
+
+      <!-- Main Slot -->
+      <div
+        class="flex-grow p-4 transition-all duration-300"
+        :class="[isSidebarOpen ? 'w-10/12' : 'w-full', 'md:w-10/12']"
+      >
+        <div class="w-full flex flex-col justify-center items-center">
           <div class="w-10/12">
             <slot name="body"></slot>
           </div>
         </div>
-      </main>
+      </div>
     </div>
+
+    <!-- Footer -->
     <AdminFooter />
   </div>
 </template>
@@ -20,6 +34,7 @@
 import AdminHeader from './AdminHeader.vue'
 import AdminFooter from './AdminFooter.vue'
 import AdminSideBar from './AdminSideBar.vue'
+
 export default {
   name: 'AdminLayout',
   components: { AdminHeader, AdminFooter, AdminSideBar },
@@ -36,4 +51,4 @@ export default {
 }
 </script>
 
-<style lang=""></style>
+<style lang="scss"></style>

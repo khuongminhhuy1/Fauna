@@ -1,8 +1,7 @@
 <template>
-  <div class="bg-blue-900 border-2 w-full rounded-md h-[600px]">
-    
-  </div>
+  <div class=""></div>
 </template>
+
 <script>
 export default {
   name: 'MainPage',

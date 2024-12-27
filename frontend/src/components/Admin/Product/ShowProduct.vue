@@ -1,12 +1,11 @@
 <template lang="">
   <div class="overflow-x-auto">
     <div class="py-4 flex flex-row justify-between items-center">
-      <h1 class="text-3xl">Category List</h1>
+      <h1 class="text-3xl">Products List</h1>
       <router-link to="/register"
         ><button class="btn">
-          <i class="fa-solid fa-plus"></i>
-        </button></router-link
-      >
+          <i class="fa-solid fa-plus"></i></button
+      ></router-link>
     </div>
     <table class="table w-full">
       <thead>

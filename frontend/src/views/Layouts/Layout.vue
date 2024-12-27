@@ -1,10 +1,20 @@
 <template>
   <div class="flex flex-col min-h-screen">
-    <MainHeader />
-    <main class="p-4 w-full">
+    <main class="w-full">
+      <div class="fixed top-0 left-0 w-full bg-white shadow-md z-10">
+        <MainHeader />
+      </div>
       <div class="w-full flex flex-col justify-center items-center flex-grow">
-        <div class="w-10/12">
-          <slot name="body"></slot>
+        <div class="w-full">
+          <div class="bg-black w-full max-h-screen">
+            <div
+              class="hero min-h-screen"
+              style="background-image: url(../../../public/images/wallpaper.png)"
+            >
+              <div class="hero-overlay bg-opacity-60"></div>
+              <slot name="body"></slot>
+            </div>
+          </div>
         </div>
       </div>
     </main>

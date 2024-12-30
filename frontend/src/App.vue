@@ -16,18 +16,18 @@
     </template>
     <template v-else>
       <div class="min-h-screen">
-        <Layout>
+        <MainLayout>
           <template #body>
             <RouterView />
           </template>
-        </Layout>
+        </MainLayout>
       </div>
     </template>
   </template>
 </template>
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import Layout from './views/Layouts/Layout.vue'
+import MainLayout from './views/Layouts/Layout.vue'
 import AdminLayout from './views/AdminLayouts/AdminLayout.vue'
 import { computed } from 'vue'
 import { RouterView } from 'vue-router'

@@ -1,21 +1,28 @@
-<template lang="">
+<template>
   <div
-    class="navbar bg-transparent backdrop-blur-sm sticky top-0 bg-opacity-50 border-b border-gray-300 "
+    class="navbar bg-transparent backdrop-blur-sm sticky top-0 bg-opacity-50 border-b border-gray-300"
   >
+    <!-- Left Section: Sidebar Button -->
     <div class="navbar-start">
       <HeaderSideBar />
     </div>
+
+    <!-- Center Section: Logo -->
     <div class="navbar-center">
-      <img src="../../../public/images/logo.png" alt="Go back to main page" class="w-[150px]" />
+      <img src="/images/logo.png" alt="Go back to main page" class="w-[150px] cursor-pointer" />
     </div>
+
+    <!-- Right Section: Login Button -->
     <div class="navbar-end">
       <loginBtn />
     </div>
   </div>
 </template>
+
 <script>
 import loginBtn from '@/components/Btn/loginBtn.vue'
 import HeaderSideBar from '@/components/Btn/HeaderSideBar.vue'
+
 export default {
   name: 'MainHeader',
   components: { loginBtn, HeaderSideBar },

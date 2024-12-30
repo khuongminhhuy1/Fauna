@@ -11,7 +11,7 @@
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
           <div class="w-10 rounded-full">
-            <img alt="Tailwind CSS Navbar component" src="../../../public/images/Chibi-fauna.png" />
+            <img alt="Tailwind CSS Navbar component" src="/images/Chibi-fauna.png" />
           </div>
         </div>
         <ul

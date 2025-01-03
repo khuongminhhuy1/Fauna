@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="font-[sans-serif] bg-main-bg bg-cover">
+  <div class="font-[sans-serif] bg-[url('/images/hero-image.png')] bg-cover">
     <div class="min-h-screen flex flex-col items-center justify-center">
       <div
         class="grid md:grid-cols-2 items-center backdrop-blur-sm bg-opacity-50 gap-4 max-md:gap-8 max-w-6xl max-md:max-w-lg w-full p-4 m-4 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-md"

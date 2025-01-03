@@ -109,10 +109,19 @@ export async function deleteProduct(req, res) {
 }
 export async function getAllProduct(req, res) {
   try {
-    const products = await prisma.product.findMany();
-    res.json(products);
+    const products = await prisma.product.findMany({
+      include: {
+        category: true, // Include the category details
+        images: true, // Include the related images
+      },
+    });
+
+    res.status(200).json(products);
   } catch (error) {
-    res.status(500).send(error.message);
+    console.error("Error fetching products:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching products." });
   }
 }
 

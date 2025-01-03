@@ -20,7 +20,7 @@
         <span
           class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-pink-900 text-3xl font-semibold absolute inset-0 flex items-center justify-center"
         >
-          Nendroid
+          Nendoroid
         </span>
       </div>
       <div

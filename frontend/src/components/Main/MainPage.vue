@@ -33,16 +33,30 @@
 
     <!-- Divider -->
     <div class="w-full h-0.5 bg-gray-200 my-8"></div>
+
+    <div class="w-full sm:w-10/12 mx-auto justify-center items-center">
+      <BenefitSector />
+    </div>
+
+    <!-- Divider -->
+    <div class="w-full h-0.5 bg-gray-200 my-8"></div>
+
+    <div class="">
+      <ProducSector />
+    </div>
   </main>
 </template>
 
 <script>
-import CategorySector from '@/components/Sectors/CategorySector.vue'
-
+import CategorySector from '@/components/Sector/CategorySector.vue'
+import BenefitSector from '../Sector/BenefitSector.vue'
+import ProducSector from '../Sector/ProductSector.vue'
 export default {
   name: 'MainPage',
   components: {
     CategorySector,
+    BenefitSector,
+    ProducSector,
   },
 }
 </script>

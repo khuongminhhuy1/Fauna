@@ -7,7 +7,7 @@
         <span
           class="bg-gradient-to-l from-blue-500 via-teal-500 to-green-500 text-transparent bg-clip-text"
         >
-          Faumart
+          FaunaMart
         </span>
       </h1>
       <p class="pt-8 sm:pt-10 text-lg max-w-3xl mx-auto">

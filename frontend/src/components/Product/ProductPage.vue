@@ -1,5 +1,5 @@
 <template>
-  <div class="p-8 bg-base-200 min-h-screen">
+  <div class="p-8 min-h-screen">
     <h1 class="text-4xl font-bold text-center text-primary mb-8">Our Products</h1>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <ProductCard
@@ -25,6 +25,9 @@ export default {
     }
   },
   methods: {
+    gotoProduct(id) {
+      this.$router.push({ name: 'SingleProduct', params: { id } })
+    },
     async fetchData() {
       try {
         const response = await GetProducts()
@@ -43,7 +46,7 @@ export default {
     },
   },
   mounted() {
-    this.fetchData() // Fetches products when component is mounted
+    this.fetchData()
   },
 }
 </script>

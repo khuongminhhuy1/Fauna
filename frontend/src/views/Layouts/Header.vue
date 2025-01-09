@@ -9,7 +9,12 @@
 
     <!-- Center Section: Logo -->
     <div class="navbar-center">
-      <img src="/images/logo.png" alt="Go back to main page" class="w-[150px] cursor-pointer" />
+      <img
+        src="/images/logo.png"
+        alt="Go back to main page"
+        class="w-[150px] cursor-pointer"
+        @click="gotoHome"
+      />
     </div>
 
     <!-- Right Section: Login Button -->
@@ -26,5 +31,10 @@ import HeaderSideBar from '@/components/Btn/HeaderSideBar.vue'
 export default {
   name: 'MainHeader',
   components: { loginBtn, HeaderSideBar },
+  methods: {
+    gotoHome() {
+      this.$router.push({ name: 'home' })
+    },
+  },
 }
 </script>

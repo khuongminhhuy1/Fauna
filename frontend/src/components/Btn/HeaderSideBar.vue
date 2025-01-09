@@ -9,7 +9,7 @@
     </div>
     <div class="drawer-side">
       <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-      <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+      <ul class="menu bg-gray-900 text-white min-h-full w-80 p-4 border-r border-emerald-600">
         <!-- Sidebar content here -->
         <li><a>Sidebar Item 1</a></li>
         <li><a>Sidebar Item 2</a></li>

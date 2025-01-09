@@ -1,28 +1,26 @@
 <template lang="">
-  <div class="">
+  <div class="flex flex-row">
+    <SearchBtn />
     <button
       v-if="!isLoggedIn"
       @click="redirectToLogin"
-      class="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+      class="text-emerald-600 bg-gray-900 hover:bg-gray-700 border border-emerald-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center ml-2"
     >
       Login
     </button>
     <div v-else class="user-info">
-      <div class="dropdown dropdown-end">
+      <div class="dropdown dropdown-end ml-2">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
           <div class="w-10 rounded-full">
-            <img alt="Tailwind CSS Navbar component" src="/images/Chibi-fauna.png" />
+            <img alt="Avatar" src="/images/Chibi-fauna.png" />
           </div>
         </div>
         <ul
           tabindex="0"
-          class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+          class="menu menu-sm dropdown-content bg-gray-900 text-white border border-emerald-600 rounded-box z-[1] mt-3 w-52 p-2 shadow"
         >
           <li>
-            <a class="justify-between">
-              Profile
-              <span class="badge">New</span>
-            </a>
+            <a class="justify-between"> Profile </a>
           </li>
           <li><a>Settings</a></li>
           <li><button @click="logout">Logout</button></li>
@@ -35,8 +33,12 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
+import SearchBtn from './SearchBtn.vue'
 export default {
   name: 'loginBtn',
+  components: {
+    SearchBtn,
+  },
   setup() {
     const isLoggedIn = ref(false)
     const userName = ref('')

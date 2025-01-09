@@ -1,10 +1,12 @@
 <template>
   <div class="card cursor-pointer border border-emerald-600 p-3 backdrop-blur-md">
-    <img
-      :src="product.images[0]?.url"
-      alt="Product Image"
-      class="w-full h-[300px] object-cover object-top rounded-lg"
-    />
+    <div class="overflow-hidden rounded-lg">
+      <img
+        :src="product.images[0]?.url"
+        alt="Product Image"
+        class="w-full h-[300px] object-cover object-top transform transition-transform duration-300 ease-in-out hover:scale-110"
+      />
+    </div>
     <div class="card-body p-0 pt-3">
       <h2 class="card-title text-white overflow-hidden whitespace-nowrap text-ellipsis">
         {{ product.name }}

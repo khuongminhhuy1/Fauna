@@ -1,6 +1,10 @@
 <template>
   <div class="flex flex-col items-center p-8 bg-transparent min-h-screen rounded-lg w-full">
-    <h1 class="text-4xl font-bold text-center text-primary mb-8">Our Products</h1>
+    <h1
+      class="text-4xl font-bold text-center text-primary mb-8 bg-gradient-to-l from-blue-500 via-teal-500 to-green-500 text-transparent bg-clip-text"
+    >
+      Our Products
+    </h1>
     <div class="flex flex-wrap gap-2 flex-row justify-center">
       <ProductCard
         v-for="product in products"

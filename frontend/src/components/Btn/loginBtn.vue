@@ -1,6 +1,5 @@
 <template lang="">
   <div class="flex flex-row">
-    <SearchBtn />
     <button
       v-if="!isLoggedIn"
       @click="redirectToLogin"
@@ -20,6 +19,10 @@
           class="menu menu-sm dropdown-content bg-gray-900 text-white border border-emerald-600 rounded-box z-[1] mt-3 w-52 p-2 shadow"
         >
           <li>
+            <a class="justify-between"> Cart </a>
+          </li>
+
+          <li>
             <a class="justify-between"> Profile </a>
           </li>
           <li><a>Settings</a></li>
@@ -33,12 +36,10 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
-import SearchBtn from './SearchBtn.vue'
+
 export default {
   name: 'loginBtn',
-  components: {
-    SearchBtn,
-  },
+  components: {},
   setup() {
     const isLoggedIn = ref(false)
     const userName = ref('')

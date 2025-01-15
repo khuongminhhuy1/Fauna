@@ -3,7 +3,9 @@
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
       <!-- Page content here -->
-      <label for="my-drawer" class="btn bg-transparent border-none shadow-none drawer-button"
+      <label
+        for="my-drawer"
+        class="btn bg-transparent border-none shadow-none drawer-button text-emerald-600"
         ><i class="fa-solid fa-bars"></i
       ></label>
     </div>

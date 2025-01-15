@@ -19,6 +19,7 @@
 
     <!-- Right Section: Login Button -->
     <div class="navbar-end">
+      <SearchBtn />
       <loginBtn />
     </div>
   </div>
@@ -27,10 +28,11 @@
 <script>
 import loginBtn from '@/components/Btn/loginBtn.vue'
 import HeaderSideBar from '@/components/Btn/HeaderSideBar.vue'
+import SearchBtn from '@/components/Btn/SearchBtn.vue'
 
 export default {
   name: 'MainHeader',
-  components: { loginBtn, HeaderSideBar },
+  components: { loginBtn, HeaderSideBar, SearchBtn },
   methods: {
     gotoHome() {
       this.$router.push({ name: 'home' })

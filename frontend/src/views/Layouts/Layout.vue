@@ -32,6 +32,7 @@ export default {
   components: {
     MainHeader,
     MainFooter,
+   
   },
 }
 </script>

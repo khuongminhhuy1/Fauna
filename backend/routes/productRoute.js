@@ -17,7 +17,20 @@ router.use((req, res, next) => {
 
 router.get("/", getAllProduct);
 router.get("/:id", getProductById);
-router.post("/create", upload, createProduct);
+router.post(
+  "/create",
+  upload,
+  (err, req, res, next) => {
+    if (err) {
+      console.error("Multer error:", err);
+      return res
+        .status(400)
+        .json({ error: "File upload failed. " + err.message });
+    }
+    next();
+  },
+  createProduct
+);
 router.delete("/:id", deleteProduct);
 
 export default router;

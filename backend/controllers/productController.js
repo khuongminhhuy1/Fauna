@@ -14,11 +14,18 @@ export async function createProduct(req, res) {
     // Destructure product details from request body
     const { name, categoryId, price, description } = req.body;
 
+    if (!name || !categoryId || !price || !description) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
     // Assuming you want to save the file URLs in your database (example with images)
     const imageUrls = req.files.map((file) => file.path); // This is Cloudinary URL (accessible via 'file.path')
 
     // Create the product in the database
     const categoryIdInt = parseInt(categoryId);
+    if (isNaN(categoryIdInt)) {
+      return res.status(400).json({ error: "Invalid category ID" });
+    }
     const priceFloat = parseFloat(price);
     const newProduct = await prisma.product.create({
       data: {

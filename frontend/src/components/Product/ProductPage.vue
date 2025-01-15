@@ -1,7 +1,7 @@
 <template>
   <div class="p-8 min-h-screen">
     <h1 class="text-4xl font-bold text-center text-primary mb-8">Our Products</h1>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div class="flex flex-wrap gap-2 flex-row justify-center">
       <ProductCard
         v-for="product in products"
         :key="product.id"

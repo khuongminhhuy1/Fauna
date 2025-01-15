@@ -8,6 +8,7 @@ import { dirname } from "path";
 import userRoute from "./routes/userRoute.js";
 import categoryRoute from "./routes/categoryRoute.js";
 import productRoute from "./routes/productRoute.js";
+import cartRoute from "./routes/cartRoute.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -27,6 +28,7 @@ app.use(cors({ credentials: true, origin: true }));
 app.use("/", userRoute);
 app.use("/category", categoryRoute);
 app.use("/product", productRoute);
+app.use("/cart", cartRoute);
 
 //START SERVER
 const port = process.env.PORT || 5555;

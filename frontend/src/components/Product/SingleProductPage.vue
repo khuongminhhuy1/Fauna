@@ -38,7 +38,7 @@
               Price: ${{ product.price }}
             </div>
             <button
-              class="btn bg-emerald-500 hover:bg-emerald-600 text-white rounded px-6 py-3 text-base md:text-lg w-full"
+              class="btn border-none bg-emerald-500 hover:bg-emerald-600 text-white rounded px-6 py-3 text-base md:text-lg w-full"
               @click="addToCart"
             >
               Add to Cart
@@ -56,8 +56,8 @@
             *Dates and times listed are in Japan Standard Time (JST) unless otherwise stated.
           </p>
           <p class="font-semibold pt-8">
-            ■International Partner Shops<br />
-            This product is available from our partner shops.
+            International Partner Shops<br />
+            - This product is available from our partner shops.
           </p>
         </div>
       </div>

@@ -5,18 +5,22 @@ const prisma = new PrismaClient();
 
 export async function getCart(req, res) {
   const { userId } = req.params; // Assuming userId is passed in the route
-
   try {
-    // Fetch cart items for the user, including product details
+    // Fetch cart items for the user, including product details and first image
     const cartItems = await prisma.cart.findMany({
       where: {
         userId: parseInt(userId), // Convert to integer if necessary
       },
       include: {
-        Product: true, // Include related product details
+        Product: {
+          include: {
+            images: {
+              take: 1, // Fetch only the first image
+            },
+          },
+        },
       },
     });
-
     if (cartItems.length === 0) {
       return res.status(404).json({ message: "No items in cart." });
     }

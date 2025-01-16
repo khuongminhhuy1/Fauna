@@ -37,6 +37,24 @@
             <div class="text-xl font-semibold text-emerald-600 mb-4 w-full text-center">
               Price: ${{ product.price }}
             </div>
+            <div
+              class="flex items-center space-x-4 border p-2 rounded-md border-emerald-600 text-white"
+            >
+              <button
+                @click="decrementQuantity"
+                :disabled="quantity <= 1"
+                class="btn bg-emerald-600 border-none hover:bg-emerald-700"
+              >
+                -
+              </button>
+              <span>{{ quantity }}</span>
+              <button
+                @click="incrementQuantity"
+                class="btn bg-emerald-600 border-none hover:bg-emerald-700"
+              >
+                +
+              </button>
+            </div>
             <button
               class="btn border-none bg-emerald-500 hover:bg-emerald-600 text-white rounded px-6 py-3 text-base md:text-lg w-full"
               @click="addToCart"
@@ -70,15 +88,18 @@
 
 <script>
 import { getSingleProduct } from '@/services/productServices'
+import { addItemToCart } from '@/services/cartServices'
 
 export default {
   name: 'SingleProductPage',
+  components: {},
   data() {
     return {
       product: null,
       loading: true,
       error: null,
       activeImage: null, // Tracks the currently displayed image
+      quantity: 1,
     }
   },
   methods: {
@@ -95,8 +116,42 @@ export default {
         this.error = error
       }
     },
-    addToCart() {
-      alert(`Added ${this.product.name} to the cart!`)
+    incrementQuantity() {
+      this.quantity++
+    },
+    decrementQuantity() {
+      if (this.quantity > 1) this.quantity--
+    },
+    isAuthenticated() {
+      return localStorage.getItem('isLoggedIn') === 'true' // Return true if the user is logged in
+    },
+    async addToCart() {
+      // Check if the user is authenticated
+      const user = JSON.parse(localStorage.getItem('user'))
+      const isLoggedIn = this.isAuthenticated()
+      if (!isLoggedIn) {
+        // Show a simple alert if not logged in
+        alert('You need to log in to add items to the cart.')
+        return
+      }
+
+      if (!this.product || !this.product.id) {
+        console.error('Product ID is missing')
+        return
+      }
+
+      try {
+        await addItemToCart({
+          userId: user.userId,
+          productId: this.product.id,
+          name: this.product.name,
+          price: this.product.price,
+          quantity: this.quantity,
+        })
+        alert('Product added to cart')
+      } catch (error) {
+        console.error('Error adding to cart:', error)
+      }
     },
   },
   created() {

@@ -19,7 +19,7 @@
           class="menu menu-sm dropdown-content bg-gray-900 text-white border border-emerald-600 rounded-box z-[1] mt-3 w-52 p-2 shadow"
         >
           <li>
-            <a class="justify-between"> Cart </a>
+            <router-link to="/cart"> <a class="justify-between"> Cart </a></router-link>
           </li>
 
           <li>

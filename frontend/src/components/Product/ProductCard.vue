@@ -14,12 +14,6 @@
       <div class="card-actions flex flex-col">
         <span class="text-lg font-bold text-success">${{ product.price }}</span>
         <p class="text-white">Release Date : {{ formatDate(product.createdAt) }}</p>
-        <button
-          class="btn bg-emerald-500 border-none text-white hover:bg-emerald-600 w-full"
-          @click="$emit('add-to-cart', product)"
-        >
-          Add to Cart
-        </button>
       </div>
     </div>
   </div>

@@ -9,6 +9,7 @@ import ShowCategory from '@/components/Admin/Category/ShowCategory.vue'
 import ShowProduct from '@/components/Admin/Product/ShowProduct.vue'
 import ProductPage from '@/components/Product/ProductPage.vue'
 import SingleProductPage from '@/components/Product/SingleProductPage.vue'
+import CartPage from '@/components/Cart/CartPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,6 +36,12 @@ const router = createRouter({
       path: '/verified',
       name: 'verified',
       component: UserVerify,
+      meta: { noHeader: false, layout: 'default' },
+    },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: CartPage,
       meta: { noHeader: false, layout: 'default' },
     },
     {

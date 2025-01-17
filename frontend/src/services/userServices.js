@@ -85,3 +85,30 @@ export const DeleteUser = async (id) => {
     toast.error(error.response ? error.response.data.message : error.message)
   }
 }
+
+// USER INFORMATION
+export const saveUserInformation = async (
+  userId,
+  address,
+  city,
+  state,
+  zipCode,
+  phone,
+  country,
+) => {
+  try {
+    const response = await axios.post(`${api_url}/user/${userId}/user-information`, {
+      userId,
+      address,
+      city,
+      state,
+      zipCode,
+      phone,
+      country,
+    })
+    return response
+    toast.success('Information saved successfully!')
+  } catch (error) {
+    toast.error(error.response ? error.response.data.message : error.message)
+  }
+}

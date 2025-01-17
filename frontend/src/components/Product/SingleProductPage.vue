@@ -87,12 +87,16 @@
 </template>
 
 <script>
+import { useToast } from 'vue-toastification'
 import { getSingleProduct } from '@/services/productServices'
 import { addItemToCart } from '@/services/cartServices'
 
 export default {
   name: 'SingleProductPage',
   components: {},
+  setup() {
+    const toast = useToast()
+  },
   data() {
     return {
       product: null,
@@ -148,7 +152,7 @@ export default {
           price: this.product.price,
           quantity: this.quantity,
         })
-        alert('Product added to cart')
+        toast.success('Product added to cart')
       } catch (error) {
         console.error('Error adding to cart:', error)
       }

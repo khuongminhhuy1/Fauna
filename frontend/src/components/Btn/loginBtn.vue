@@ -11,7 +11,7 @@
       <div class="dropdown dropdown-end ml-2">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
           <div class="w-10 rounded-full">
-            <img alt="Avatar" src="/images/Chibi-fauna.png" />
+            <img alt="Avatar" :src="user.avatar" />
           </div>
         </div>
         <ul
@@ -42,16 +42,16 @@ export default {
   components: {},
   setup() {
     const isLoggedIn = ref(false)
-    const userName = ref('')
+    const user = ref({ avatar: '', name: '' })
     const router = useRouter()
     const toast = useToast()
     // Check authentication state on app load
     onMounted(() => {
-      const user = localStorage.getItem('user')
-      if (user) {
-        const parsedUser = JSON.parse(user)
+      const storedUser = localStorage.getItem('user')
+      if (storedUser) {
+        const parsedUser = JSON.parse(storedUser)
         isLoggedIn.value = true
-        userName.value = parsedUser.name
+        user.value = parsedUser
       }
     })
 
@@ -65,14 +65,14 @@ export default {
       localStorage.removeItem('user')
       localStorage.setItem('isLoggedIn', 'false')
       isLoggedIn.value = false
-      userName.value = ''
+      user.value = { avatar: '', name: '' }
       toast.success('Logged out successfully !')
       router.push('/')
     }
 
     return {
       isLoggedIn,
-      userName,
+      user,
       redirectToLogin,
       logout,
     }

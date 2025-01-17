@@ -1,29 +1,25 @@
 <template>
-  <template v-if="layout === 'admin'">
-    <div class="min-h-screen">
+  <div>
+    <div v-if="layout === 'admin'" class="min-h-screen">
       <AdminLayout>
         <template #body>
           <RouterView />
         </template>
       </AdminLayout>
     </div>
-  </template>
-  <template v-else>
-    <template v-if="noHeader">
-      <div class="min-h-screen">
+    <div v-else>
+      <div v-if="noHeader" class="min-h-screen">
         <RouterView />
       </div>
-    </template>
-    <template v-else>
-      <div class="min-h-screen">
+      <div v-else class="min-h-screen">
         <MainLayout>
           <template #body>
             <RouterView />
           </template>
         </MainLayout>
       </div>
-    </template>
-  </template>
+    </div>
+  </div>
 </template>
 <script setup lang="ts">
 import { useRoute } from 'vue-router'

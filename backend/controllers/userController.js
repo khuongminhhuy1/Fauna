@@ -36,6 +36,7 @@ export async function createUser(req, res) {
         name,
         email,
         password: hashedPassword,
+        avatar: "https://i.imgur.com/0rkAIrI.png",
         token: { create: { token } },
       },
     });
@@ -115,6 +116,7 @@ export async function loginUser(req, res) {
           userId: user.id,
           name: user.name,
           email: user.email,
+          avatar: user.avatar,
           role: user.role,
         },
         process.env.JWT_SECRET,

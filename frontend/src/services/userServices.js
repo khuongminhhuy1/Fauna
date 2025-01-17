@@ -21,6 +21,7 @@ export const login = async (email, password, router) => {
           userId: decodedToken.userId,
           name: decodedToken.name,
           email: decodedToken.email,
+          avatar: decodedToken.avatar,
           role: decodedToken.role,
         }),
       )

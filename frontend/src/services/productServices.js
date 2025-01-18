@@ -6,7 +6,7 @@ const toast = useToast()
 
 export const GetProducts = async () => {
   try {
-    const response = await axios.get(`${api_url}/product`)
+    const response = await axios.get(`${api_url}/product`, { withCredentials: true })
     return response
   } catch (error) {
     toast.error(error.response ? error.response.data.message : error.message)
@@ -18,7 +18,7 @@ export const AddProduct = async (name, price, category) => {
       name,
       price,
       category,
-    })
+    }, { withCredentials: true })
     if (response.data) {
       toast.success('Product added successfully!')
     }
@@ -30,7 +30,7 @@ export const AddProduct = async (name, price, category) => {
 }
 export const getSingleProduct = async (id) => {
   try {
-    const response = await axios.get(`${api_url}/product/${id}`)
+    const response = await axios.get(`${api_url}/product/${id}`, { withCredentials: true })
     return response
   } catch (error) {
     toast.error(
@@ -41,7 +41,7 @@ export const getSingleProduct = async (id) => {
 
 export const DeleteProduct = async (id) => {
   try {
-    const response = await axios.delete(`${api_url}/product/${id}`)
+    const response = await axios.delete(`${api_url}/product/${id}`, { withCredentials: true })
     if (response.data) {
       toast.success('Product deleted successfully!')
     }

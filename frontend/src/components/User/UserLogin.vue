@@ -26,7 +26,7 @@
                   type="email"
                   v-model="email"
                   required
-                  class="w-full rounded-md text-gray-800 text-sm border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none"
+                  class="w-full text-emerald-800 rounded-md text-sm border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none"
                   placeholder="Enter Email"
                 />
               </div>
@@ -40,7 +40,7 @@
                   type="password"
                   v-model="password"
                   required
-                  class="w-full rounded-md text-gray-800 text-sm border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none"
+                  class="w-full rounded-md text-emerald-800 text-sm border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none"
                   placeholder="Enter Password"
                 />
               </div>
@@ -173,11 +173,16 @@ export default {
   methods: {
     async login() {
       try {
-        await login(this.email, this.password, this.router)
-        const role = localStorage.getItem('role')
-        this.$emit('login-success')
+        const response = await login(this.email, this.password, this.router) // Call login service// Log the entire response for debugging
+        // Check if the response has the expected properties
+        if (response && response.token) {
+          this.$emit('login-success') // Emit success event
+        } else {
+          this.errorMessage = 'Login failed: Invalid response'
+        }
       } catch (error) {
-        console.error('Login error:', error)
+        console.error('Login failed:', error.response?.data?.message || error.message)
+        this.errorMessage = error.response?.data?.message || 'An error occurred.'
       }
     },
   },

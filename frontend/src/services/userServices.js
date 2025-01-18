@@ -11,18 +11,14 @@ export const login = async (email, password, router) => {
       email,
       password,
     })
-    if (response.data) {
-      const decodedToken = jwtDecode(response.data)
+    if (response.data.token) {
+      const decodedToken = jwtDecode(response.data.token)
       console.log(decodedToken)
       localStorage.setItem(
         'user',
         JSON.stringify({
           id: decodedToken.id,
           userId: decodedToken.userId,
-          name: decodedToken.name,
-          email: decodedToken.email,
-          avatar: decodedToken.avatar,
-          role: decodedToken.role,
         }),
       )
       localStorage.setItem('isLoggedIn', 'true')
@@ -80,7 +76,7 @@ export const UpdateUser = async (id) => {
 }
 export const DeleteUser = async (id) => {
   try {
-    const response = await axios.delete(`${api_url}/user/${id}`)
+    const response = await axios.delete(`${api_url}/user/${id}`, { withCredentials: true })
     return response
   } catch (error) {
     toast.error(error.response ? error.response.data.message : error.message)

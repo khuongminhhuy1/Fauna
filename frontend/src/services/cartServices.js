@@ -6,7 +6,7 @@ const toast = useToast()
 
 export const fetchCart = (userId) => {
   try {
-    const response = axios.get(`${api_url}/cart/${userId}`)
+    const response = axios.get(`${api_url}/cart/${userId}`, { withCredentials: true })
     return response
   } catch (error) {
     toast.error(error.response ? error.response.data.message : error.message)
@@ -16,7 +16,7 @@ export const fetchCart = (userId) => {
 // Add an item to the cart
 export const addItemToCart = (item) => {
   try {
-    const response = axios.post(`${api_url}/cart/add`, item)
+    const response = axios.post(`${api_url}/cart/add`, item, { withCredentials: true })
     return response
   } catch (error) {
     toast.error(error.response ? error.response.data.message : error.message)
@@ -26,7 +26,7 @@ export const addItemToCart = (item) => {
 // Update item quantity
 export const updateCartItemQuantity = (id, quantity) => {
   try {
-    const response = axios.put(`${api_url}/cart/${id}`, { quantity })
+    const response = axios.put(`${api_url}/cart/${id}`, { quantity }, { withCredentials: true })
     return response
   } catch (error) {
     toast.error(error.response ? error.response.data.message : error.message)

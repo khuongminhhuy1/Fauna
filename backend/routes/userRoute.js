@@ -12,7 +12,11 @@ import {
 } from "../controllers/userController.js";
 import { saveUserInformation } from "../controllers/userInfoController.js";
 import { constructUrl } from "../urlHelper.js";
-import { authenticate } from "../middleware/authentication.js";
+import {
+  authenticate,
+  authorizeRole,
+  verifyToken,
+} from "../middleware/authentication.js";
 
 router.use((req, res, next) => {
   res.locals.url = constructUrl(req);
@@ -30,7 +34,7 @@ router.get("/user/verify/:id/:token", verifyEmail);
 router.get("/user/:id", getUserById);
 router.get("/users", getAllUsers);
 router.put("/user/:id", updateUser);
-router.delete("/user/:id", deleteUser);
+router.delete("/user/:id", verifyToken, authorizeRole("Admin"), deleteUser);
 //Information
 router.post("/user/:id/user-information", saveUserInformation);
 export default router;

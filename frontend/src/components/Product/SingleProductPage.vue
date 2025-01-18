@@ -130,6 +130,7 @@ export default {
       return localStorage.getItem('isLoggedIn') === 'true' // Return true if the user is logged in
     },
     async addToCart() {
+      const toast = useToast()
       // Check if the user is authenticated
       const user = JSON.parse(localStorage.getItem('user'))
       const isLoggedIn = this.isAuthenticated()

@@ -98,9 +98,9 @@ export default {
         if (!storedUser || !storedUser.userId) {
           throw new Error('User ID not found in local storage')
         }
-
         const response = await GetUserById(storedUser.userId)
         Object.assign(user.value, response.data) // Populate user object with backend data
+        console.log('User:', user.value)
       } catch (error) {
         console.error('Error fetching user:', error)
         alert('Failed to load profile')

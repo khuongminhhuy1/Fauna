@@ -25,7 +25,7 @@
                   type="text"
                   v-model="name"
                   required
-                  class="w-full rounded-md text-gray-800 text-sm border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none"
+                  class="w-full rounded-md text-emerald-800 text-sm border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none"
                   placeholder="Enter Your Name"
                 />
               </div>
@@ -39,7 +39,7 @@
                   type="text"
                   v-model="email"
                   required
-                  class="w-full rounded-md text-gray-800 text-sm border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none"
+                  class="w-full rounded-md text-emerald-800 text-sm border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none"
                   placeholder="Enter Email"
                 />
               </div>
@@ -53,7 +53,7 @@
                   type="password"
                   v-model="password"
                   required
-                  class="w-full rounded-md text-gray-800 text-sm border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none"
+                  class="w-full rounded-md text-emerald-800 text-sm border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none"
                   placeholder="Enter Password"
                 />
               </div>
@@ -69,7 +69,7 @@
                   type="Password"
                   v-model="confirmPassword"
                   required
-                  class="w-full rounded-md text-gray-800 text-sm border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none"
+                  class="w-full rounded-md text-emerald-800 text-sm border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none"
                   placeholder="Confirm Password"
                 />
               </div>

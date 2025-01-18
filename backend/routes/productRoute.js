@@ -9,6 +9,7 @@ import {
   getAllProduct,
   getProductById,
 } from "../controllers/productController.js";
+import { authorizeRole, verifyToken } from "../middleware/authentication.js";
 
 router.use((req, res, next) => {
   res.locals.url = constructUrl(req);
@@ -18,7 +19,7 @@ router.use((req, res, next) => {
 router.get("/", getAllProduct);
 router.get("/:id", getProductById);
 router.post(
-  "/create",
+  "/create",verifyToken , authorizeRole("Admin"),
   upload,
   (err, req, res, next) => {
     if (err) {

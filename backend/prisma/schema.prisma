@@ -39,7 +39,7 @@ model User {
   verified   Boolean  @default(false)
   token      Token?
   Cart       Cart[]
-  orders     Order[]
+  orders     Orders[]
   avatar     String?
   UserInformation UserInformation?
 }
@@ -83,7 +83,7 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   Cart        Cart[]
-  orderItems OrderItem[]
+  orderItems OrderItems[]
 }
 
 model Image {
@@ -105,26 +105,27 @@ model Cart {
 
   @@unique([userId, productId])
 }
-model Order {
+model Orders {
   id            Int         @id @default(autoincrement())
   userId        Int
+  orderNumber  String        @unique
   totalAmount   Float
   status        OrderStatus  @default(PENDING)
   paymentMethod PaymentMethod
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   User          User         @relation(fields: [userId], references: [id])
-  orderItems    OrderItem[]
+  orderItems    OrderItems[]
 
   @@index([userId])
 }
 
-model OrderItem {
+model OrderItems {
   id        Int      @id @default(autoincrement())
   orderId   Int
   productId Int
   quantity  Int
   price     Float
-  Order     Order    @relation(fields: [orderId], references: [id])
+  Order     Orders    @relation(fields: [orderId], references: [id])
   Product   Product  @relation(fields: [productId], references: [id])
 }

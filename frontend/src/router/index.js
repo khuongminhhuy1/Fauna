@@ -90,23 +90,43 @@ const router = createRouter({
   ],
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'
-  const user = JSON.parse(localStorage.getItem('user') || '{}')
+  const token = localStorage.getItem('token') // Or session token if using session
 
-  if (to.meta.requiresAuth) {
-    if (!isLoggedIn) {
-      // If not logged in, redirect to login
-      return next('/login')
-    }
-
-    if (to.meta.role && to.meta.role !== user.role) {
-      // If role doesn't match, redirect to unauthorized or home page
-      return next('/')
-    }
+  if (to.meta.requiresAuth && !isLoggedIn) {
+    toast.error('You need to log in to access this page.')
+    return next('/login')
   }
 
-  next() // Proceed to the route
+  if (to.meta.role && token) {
+    try {
+      // Fetch the user data from the backend to get the role dynamically
+      const response = await axios.get('/api/user/me', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      const userRole = response.data.role
+
+      // Check if user has the required role
+      if (userRole !== to.meta.role) {
+        toast.error('You do not have permission to access this page.')
+        return next('/')
+      }
+
+      // Proceed with navigation
+      next()
+    } catch (error) {
+      toast.error('Error fetching user role.')
+      next('/')
+    }
+  } else {
+    // If no role is required, proceed with navigation
+    next()
+  }
 })
 
 export default router
+

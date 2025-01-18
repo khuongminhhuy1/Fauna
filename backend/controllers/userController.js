@@ -116,18 +116,24 @@ export async function loginUser(req, res) {
           userId: user.id,
           name: user.name,
           email: user.email,
-          avatar: user.avatar,
           role: user.role,
         },
         process.env.JWT_SECRET,
         {
           expiresIn: "1h",
-        },
-        (err, token) => {
-          if (err) throw err;
-          res.status(200).send(token);
         }
       );
+      res.cookie("token", token, {
+        httpOnly: true, // Prevents access to the token from JavaScript
+        secure: process.env.NODE_ENV === "production", // Set to true in production for HTTPS
+        sameSite: "Strict", // Prevents CSRF attacks
+        maxAge: 3600000, // 1 hour
+      });
+      // Return token in the response
+      return res.status(200).json({
+        message: "Login successful",
+        token: token,
+      });
     }
   } catch (error) {
     res.status(500).send(error.message);
@@ -140,6 +146,9 @@ export async function getUserById(req, res) {
   try {
     const user = await prisma.user.findUnique({
       where: { id: parseInt(id) },
+      include: {
+        UserInformation: true,
+      },
     });
     if (user) {
       res.json(user);

@@ -1,3 +1,4 @@
+import router from '@/router'
 import axios from 'axios'
 import { jwtDecode } from 'jwt-decode'
 import { useToast } from 'vue-toastification'
@@ -7,10 +8,14 @@ const toast = useToast()
 
 export const login = async (email, password, router) => {
   try {
-    const response = await axios.post(`${api_url}/login`, {
-      email,
-      password,
-    })
+    const response = await axios.post(
+      `${api_url}/login`,
+      {
+        email,
+        password,
+      },
+      { withCredentials: true },
+    )
     if (response.data.token) {
       const decodedToken = jwtDecode(response.data.token)
       console.log(decodedToken)
@@ -68,7 +73,7 @@ export const GetUserById = async (id) => {
 
 export const UpdateUser = async (id) => {
   try {
-    const response = await axios.put(`${api_url}/user/${id}`)
+    const response = await axios.put(`${api_url}/user/${id}`, { withCredentials: true })
     return response
   } catch (error) {
     toast.error(error.response ? error.response.data.message : error.message)
@@ -77,6 +82,8 @@ export const UpdateUser = async (id) => {
 export const DeleteUser = async (id) => {
   try {
     const response = await axios.delete(`${api_url}/user/${id}`, { withCredentials: true })
+    toast.success('User Deleted !')
+    router.push("/admin/users")
     return response
   } catch (error) {
     toast.error(error.response ? error.response.data.message : error.message)

@@ -3,8 +3,8 @@
     <div class="py-4 flex flex-row justify-between items-center">
       <h1 class="text-3xl">Users List</h1>
       <router-link to="/register"
-        ><button class="btn"><i class="fa-solid fa-plus"></i></button></router-link
-      >
+        ><button class="btn"><i class="fa-solid fa-plus"></i></button
+      ></router-link>
     </div>
     <table class="table w-full">
       <thead>
@@ -60,14 +60,6 @@ export default {
         } else {
           console.log('Error', response)
         }
-      } catch (error) {
-        console.error(error)
-      }
-    },
-    async deleteUser(id) {
-      try {
-        await DeleteUser(id)
-        this.fetchData() // Refresh user list after deletion
       } catch (error) {
         console.error(error)
       }

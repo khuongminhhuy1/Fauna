@@ -10,7 +10,7 @@
       <div class="modal-box">
         <h3 class="text-lg font-bold">Do you want to delete this category?</h3>
         <div class="modal-action">
-          <button class="btn btn-error" @click="deleteUser">Delete</button>
+          <button class="btn btn-error" @click="deleteCategory">Delete</button>
           <button class="btn" @click="closeModal">Close</button>
         </div>
       </div>
@@ -39,9 +39,9 @@ export default {
     },
 
     // Delete the user and emit an event to notify parent
-    async deleteUser() {
+    async deleteCategory() {
       try {
-        await DeleteCategory(this.id) // Call API to delete the user
+        await DeleteCategory(this.categoryId) // Call API to delete the user
         this.$emit('deleted') // Notify parent to refresh the user list
         this.closeModal() // Close modal after deletion
       } catch (error) {

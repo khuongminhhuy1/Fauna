@@ -53,7 +53,7 @@ export default {
         if (response && response.data) {
           this.categories = response.data
         } else {
-          this.categories = []
+          console.log('Error', response)
         }
       } catch (error) {
         console.log(error)

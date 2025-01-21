@@ -31,6 +31,7 @@ export const login = async (email, password, router) => {
       router.push('/')
     } else {
       toast.error('Login failed: Invalid response from server.')
+      return
     }
   } catch (error) {
     console.error('Login error:', error)
@@ -83,7 +84,7 @@ export const DeleteUser = async (id) => {
   try {
     const response = await axios.delete(`${api_url}/user/${id}`, { withCredentials: true })
     toast.success('User Deleted !')
-    router.push("/admin/users")
+    router.push('/admin/users')
     return response
   } catch (error) {
     toast.error(error.response ? error.response.data.message : error.message)
@@ -110,8 +111,26 @@ export const saveUserInformation = async (
       phone,
       country,
     })
-    return response
     toast.success('Information saved successfully!')
+    return response
+  } catch (error) {
+    toast.error(error.response ? error.response.data.message : error.message)
+  }
+}
+
+export const getUserInformation = async (userId) => {
+  try {
+    const response = await axios.get(`${api_url}/user/${userId}/user-information`)
+    return response
+  } catch (error) {
+    toast.error(error.response ? error.response.data.message : error.message)
+  }
+}
+export const deleteUserInformation = async (userId) => {
+  try {
+    const response = await axios.delete(`${api_url}/user/${userId}/user-information`)
+    toast.success('Information deleted successfully!')
+    return response
   } catch (error) {
     toast.error(error.response ? error.response.data.message : error.message)
   }

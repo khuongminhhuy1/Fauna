@@ -19,7 +19,9 @@ router.use((req, res, next) => {
 router.get("/", getAllProduct);
 router.get("/:id", getProductById);
 router.post(
-  "/create",verifyToken , authorizeRole("Admin"),
+  "/create",
+  verifyToken,
+  authorizeRole("Admin"),
   upload,
   (err, req, res, next) => {
     if (err) {
@@ -33,5 +35,7 @@ router.post(
   createProduct
 );
 router.delete("/:id", deleteProduct);
+//Search
+
 
 export default router;

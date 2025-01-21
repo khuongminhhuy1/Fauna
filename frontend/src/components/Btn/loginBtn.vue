@@ -30,7 +30,9 @@
             <router-link to="/cart"><a class="justify-between">Cart</a></router-link>
           </li>
           <li>
-            <router-link to="/profile"><a class="justify-between">Profile</a></router-link>
+            <router-link to="/profile/information"
+              ><a class="justify-between">Profile</a></router-link
+            >
           </li>
           <li><a>Settings</a></li>
           <li><button @click="logout">Logout</button></li>

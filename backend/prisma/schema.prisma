@@ -41,7 +41,7 @@ model User {
   Cart       Cart[]
   orders     Orders[]
   avatar     String?
-  UserInformation UserInformation?
+  UserInformation UserInformation[]
 }
 
 model UserInformation {

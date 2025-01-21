@@ -12,7 +12,9 @@ export async function createCategory(req, res) {
         total,
       },
     });
-    res.status(200).send("New Category has been successfully created");
+    res
+      .status(200)
+      .send("New Category has been successfully created", newCategory);
   } catch (error) {
     res.status(500).send(error.message);
   }

@@ -95,7 +95,6 @@ export default {
     return {
       cartItems: [],
       selectedItems: [], // Stores IDs of selected items
-      totalCharge: 0,
       currentPage: 1,
       itemsPerPage: 5,
     }
@@ -115,7 +114,7 @@ export default {
       return this.cartItems.slice(start, end)
     },
     isSelectAllChecked() {
-      return this.cartItems.length === this.selectedItems.length
+      return this.paginatedItems.every((item) => this.selectedItems.includes(item.id))
     },
   },
   methods: {
@@ -135,7 +134,6 @@ export default {
               image: item.Product.images?.[0]?.url || '',
               quantity: item.quantity,
             }))
-            this.totalCharge = response.data.totalCharge
           } else {
             console.error('Unexpected response structure:', response)
           }
@@ -144,49 +142,39 @@ export default {
           console.error('Error fetching cart items:', error)
         })
     },
-    updateSelection(itemIds) {
-      this.selectedItems = itemIds
-    },
-    updateQuantity({ id, quantity, price }) {
-      const itemIndex = this.cartItems.findIndex((item) => item.id === id)
-      if (itemIndex !== -1) {
-        this.cartItems[itemIndex].quantity = quantity
-        // Optionally update total charge or other calculations here
+    updateSelection({ id, isSelected }) {
+      if (isSelected) {
+        if (!this.selectedItems.includes(id)) {
+          this.selectedItems.push(id)
+        }
+      } else {
+        this.selectedItems = this.selectedItems.filter((selectedId) => selectedId !== id)
       }
     },
-    updateSelectedItems(selectedItemIds) {
-      this.selectedItems = selectedItemIds
+    updateQuantity({ id, quantity }) {
+      const item = this.cartItems.find((item) => item.id === id)
+      if (item) item.quantity = quantity
     },
     toggleSelectAll() {
       if (this.isSelectAllChecked) {
-        this.selectedItems = []
+        this.selectedItems = this.selectedItems.filter(
+          (id) => !this.paginatedItems.some((item) => item.id === id),
+        )
       } else {
-        this.selectedItems = this.cartItems.map((item) => item.id)
+        this.selectedItems = [
+          ...new Set([...this.selectedItems, ...this.paginatedItems.map((item) => item.id)]),
+        ]
       }
     },
     nextPage() {
-      if (this.currentPage < this.totalPages) {
-        this.currentPage++
-      }
+      if (this.currentPage < this.totalPages) this.currentPage++
     },
     prevPage() {
-      if (this.currentPage > 1) {
-        this.currentPage--
-      }
+      if (this.currentPage > 1) this.currentPage--
     },
-    removeItem(cartItemId) {
-      removeItemFromCart(cartItemId)
-        .then(() => {
-          this.cartItems = this.cartItems.filter((item) => item.id !== cartItemId)
-          this.selectedItems = this.selectedItems.filter((id) => id !== cartItemId)
-          this.totalCharge = this.cartItems.reduce(
-            (total, item) => total + item.price * item.quantity,
-            0,
-          )
-        })
-        .catch((error) => {
-          console.error('Error removing cart item:', error)
-        })
+    removeItem(itemId) {
+      this.cartItems = this.cartItems.filter((item) => item.id !== itemId)
+      this.selectedItems = this.selectedItems.filter((id) => id !== itemId)
     },
   },
   mounted() {

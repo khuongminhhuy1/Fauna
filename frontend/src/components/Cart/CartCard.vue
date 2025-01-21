@@ -14,11 +14,7 @@
 
       <!-- Product Image -->
       <div class="flex-shrink-0">
-        <img
-          :src="item.image || 'https://via.placeholder.com/150'"
-          :alt="item.name"
-          class="w-[80px] h-[80px] rounded-lg object-cover"
-        />
+        <img :src="item.image" :alt="item.name" class="w-[80px] h-[80px] rounded-lg object-cover" />
       </div>
 
       <!-- Product Info -->
@@ -53,8 +49,6 @@
 </template>
 
 <script>
-
-
 export default {
   name: 'CartCard',
   props: {
@@ -74,7 +68,7 @@ export default {
   methods: {
     updateSelection(event) {
       const isChecked = event.target.checked
-      this.$emit('update:selected', isChecked ? [this.item.id] : []) // Pass selected items to parent
+      this.$emit('update:selected', { id: this.item.id, isSelected: isChecked })
     },
     removeItem() {
       this.$emit('removeItemFromCart', this.item.id) // Emit the item ID for removal

@@ -164,3 +164,33 @@ export const getProductByCategory = async (req, res) => {
     res.status(500).json({ message: "Error fetching products." });
   }
 };
+//Search
+
+export const searchProducts = async (req, res) => {
+  const { query } = req.query; // The search query from the request
+
+  if (!query) {
+    return res.status(400).json({ error: "Query is required" });
+  }
+
+  try {
+    const products = await prisma.product.findMany({
+      where: {
+        OR: [
+          { name: { contains: query, mode: "insensitive" } },
+          { description: { contains: query, mode: "insensitive" } },
+          { category: { name: { contains: query, mode: "insensitive" } } }, // Assuming category name is related
+        ],
+      },
+      include: {
+        category: true, // Include the category details
+        images: true, // Include the related images
+      },
+    });
+
+    res.status(200).json(products);
+  } catch (error) {
+    console.error("Error searching products:", error);
+    res.status(500).json({ error: "Error searching products" });
+  }
+};

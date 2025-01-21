@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-4xl mx-auto px-6 py-8 bg-white rounded-lg shadow-md">
+  <div class="w-full mx-auto px-6 py-8 bg-white rounded-lg shadow-md">
     <h1 class="text-2xl font-bold mb-6">My Profile</h1>
     <div v-if="loading" class="text-center text-lg font-semibold text-gray-600">
       Loading profile...
@@ -32,66 +32,52 @@
         </div>
       </div>
 
-      <!-- Edit Profile Form -->
-      <form @submit.prevent="updateProfile" class="space-y-6">
-        <!-- Name -->
-        <div>
-          <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-          <input
-            v-model="user.name"
-            type="text"
-            id="name"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
-            required
-          />
+      <div class="w-full flex flex-row">
+        <!-- Menu -->
+        <div class="w-4/12 text-black">
+          <ul class="menu rounded-lg w-56">
+            <li>
+              <details open>
+                <summary>Basic Profile</summary>
+                <ul>
+                  <router-link to="/profile/information">
+                    <li><a>Account</a></li>
+                  </router-link>
+                  <router-link to="/profile/address">
+                    <li><a>Address</a></li>
+                  </router-link>
+                </ul>
+              </details>
+            </li>
+            <router-link to="/profile/orders">
+              <li><a>My Orders</a></li>
+            </router-link>
+          </ul>
         </div>
 
-        <!-- Email -->
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-          <input
-            v-model="user.email"
-            type="email"
-            id="email"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
-            disabled
-          />
+        <!-- Content Area -->
+        <div class="flex-grow">
+          <router-view :user="user" @update-profile="handleProfileUpdate"></router-view>
         </div>
-
-        <!-- Update Button -->
-        <div class="text-right">
-          <button
-            type="submit"
-            class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-md"
-          >
-            Save Changes
-          </button>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { ref, onMounted } from 'vue'
-import { GetUserById, UpdateUser } from '@/services/userServices' // Adjust import path as needed
+import { GetUserById } from '@/services/userServices'
 
 export default {
   name: 'ProfilePage',
   setup() {
     const user = ref({
-      id: '',
       userId: '',
-      name: '',
-      email: '',
-      avatar: '',
-      role: '',
     })
 
     const avatarPreview = ref(null)
     const loading = ref(true)
 
-    // Fetch user data from backend
     const fetchUser = async () => {
       try {
         const storedUser = JSON.parse(localStorage.getItem('user'))
@@ -99,39 +85,27 @@ export default {
           throw new Error('User ID not found in local storage')
         }
         const response = await GetUserById(storedUser.userId)
-        Object.assign(user.value, response.data) // Populate user object with backend data
-        console.log('User:', user.value)
+        Object.assign(user.value, response.data)
       } catch (error) {
         console.error('Error fetching user:', error)
-        alert('Failed to load profile')
       } finally {
         loading.value = false
       }
     }
 
-    // Handle avatar upload and preview
     const handleAvatarChange = (event) => {
       const file = event.target.files[0]
       if (file) {
         avatarPreview.value = URL.createObjectURL(file)
-        user.value.avatar = avatarPreview.value // Update avatar locally for preview
+        user.value.avatar = avatarPreview.value
       }
     }
 
-    // Update user profile
-    const updateProfile = async () => {
-      try {
-        await UpdateUser(user.value.id, {
-          name: user.value.name,
-          avatar: user.value.avatar,
-        })
-        // Update local storage with new data
-        localStorage.setItem('user', JSON.stringify(user.value))
-        alert('Profile updated successfully')
-      } catch (error) {
-        console.error('Error updating profile:', error)
-        alert('Failed to update profile')
-      }
+    const handleProfileUpdate = (updatedUser) => {
+      // Handle profile update by receiving updated user data
+      Object.assign(user.value, updatedUser)
+      localStorage.setItem('user', JSON.stringify(user.value)) // Update local storage
+      alert('Profile updated successfully')
     }
 
     onMounted(fetchUser)
@@ -141,12 +115,8 @@ export default {
       avatarPreview,
       loading,
       handleAvatarChange,
-      updateProfile,
+      handleProfileUpdate,
     }
   },
 }
 </script>
-
-<style scoped>
-/* Add custom styles if needed */
-</style>

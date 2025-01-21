@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { createRouter, createWebHistory } from 'vue-router'
 import MainPage from '@/components/Main/MainPage.vue'
 import UserVerify from '@/components/Validation/Verified.vue'
@@ -11,6 +12,9 @@ import ProductPage from '@/components/Product/ProductPage.vue'
 import SingleProductPage from '@/components/Product/SingleProductPage.vue'
 import CartPage from '@/components/Cart/CartPage.vue'
 import UserProfile from '@/components/User/UserProfile.vue'
+import UserInfo from '@/components/User/UserInfo.vue'
+import OrdersPage from '@/components/Order/OrdersPage.vue'
+import UserAddress from '@/components/User/UserAddress.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,7 +54,31 @@ const router = createRouter({
       name: 'UserProfile',
       component: UserProfile,
       meta: { noHeader: false, layout: 'default' },
+      children: [
+        {
+          path: '/profile/information',
+          name: 'UserInfo',
+          component: UserInfo,
+          meta: { noHeader: false, layout: 'default' },
+          props: (route) => ({ user: route.params.user }),
+        },
+        {
+          path: '/profile/address',
+          name: 'UserAddress',
+          component: UserAddress,
+          meta: { noHeader: false, layout: 'default' },
+          props: (route) => ({ user: route.params.user }),
+        },
+        {
+          path: '/profile/orders',
+          name: 'OrdersPage',
+          component: OrdersPage,
+          meta: { noHeader: false, layout: 'default' },
+          props: (route) => ({ user: route.params.user }),
+        },
+      ],
     },
+
     {
       path: '/admin',
       name: '/admin',
@@ -102,7 +130,7 @@ router.beforeEach(async (to, from, next) => {
   if (to.meta.role && token) {
     try {
       // Fetch the user data from the backend to get the role dynamically
-      const response = await axios.get('/api/user/me', {
+      const response = await axios.get(`/user/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -129,4 +157,3 @@ router.beforeEach(async (to, from, next) => {
 })
 
 export default router
-

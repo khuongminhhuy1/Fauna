@@ -1,3 +1,4 @@
+# WARNING : THE PROJECT STILL IN DEVELOPMENT SO BUGS AND INCOMPLETE FUNCTION STILL THERE 
 # Fauna
 
 Fauna is a full-stack web application built with **Vue.js** on the frontend and **Node.js** with **Express** on the backend. This project demonstrates modern full-stack development practices and is a starting point for scalable, production-ready applications.

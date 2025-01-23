@@ -15,6 +15,8 @@ import UserProfile from '@/components/User/UserProfile.vue'
 import UserInfo from '@/components/User/UserInfo.vue'
 import OrdersPage from '@/components/Order/OrdersPage.vue'
 import UserAddress from '@/components/User/UserAddress.vue'
+import Checkout from '@/components/Payment/Checkout.vue'
+import OrderedPage from '@/components/Order/OrderedPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -49,6 +51,19 @@ const router = createRouter({
       component: CartPage,
       meta: { noHeader: false, layout: 'default' },
     },
+    {
+      path: '/checkout',
+      name: 'checkout',
+      component: Checkout,
+      meta: { noHeader: false, layout: 'default' },
+    },
+    {
+      path: '/order-confirmation',
+      name: 'order-confirmation',
+      component: OrderedPage,
+      meta: { noHeader: false, layout: 'default' },
+    },
+
     {
       path: '/profile',
       name: 'UserProfile',

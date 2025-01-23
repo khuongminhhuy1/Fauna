@@ -2,13 +2,13 @@ import express from "express";
 const router = express.Router();
 import cors from "cors";
 import { constructUrl } from "../urlHelper.js";
-import { createOrder, getUserOrders } from "../controllers/orderController.js";
+import { Checkout } from "../controllers/orderController.js";
 
 router.use((req, res, next) => {
   res.locals.url = constructUrl(req);
   next();
 });
-router.post("/create", createOrder);
-router.get("/:id", getUserOrders);
+
+router.post("/checkout", Checkout);
 
 export default router;

@@ -8,12 +8,12 @@
       v-model="selectedMethod"
       id="payment-method"
       class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+      @change="emitPaymentMethod"
     >
       <option v-for="method in paymentMethods" :key="method.value" :value="method.value">
         {{ method.label }}
       </option>
     </select>
-
     <div v-if="selectedMethod" class="mt-4">
       <p class="text-gray-700">
         You have selected: <span class="font-semibold">{{ getSelectedMethodLabel }}</span>
@@ -29,10 +29,10 @@ export default {
     return {
       selectedMethod: '',
       paymentMethods: [
-        { label: 'Credit Card', value: 'credit-card' },
-        { label: 'PayPal', value: 'paypal' },
-        { label: 'Bank Transfer', value: 'bank-transfer' },
-        { label: 'Cash on Delivery', value: 'cod' },
+        { label: 'Credit Card', value: 'Credit Card' },
+        { label: 'PayPal', value: 'PayPal' },
+        { label: 'Bank Transfer', value: 'Bank Transfer' },
+        { label: 'Cash on Delivery', value: 'Cash on Delivery' },
       ],
     }
   },
@@ -42,9 +42,15 @@ export default {
       return method ? method.label : ''
     },
   },
+  watch: {
+    selectedMethod(newValue) {
+      this.$emit('update:paymentMethod', newValue)
+    },
+  },
+  methods: {
+    emitPaymentMethod() {
+      this.$emit('update:paymentMethod', this.selectedMethod)
+    },
+  },
 }
 </script>
-
-<style scoped>
-/* You can add any additional styling here */
-</style>

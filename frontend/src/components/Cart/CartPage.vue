@@ -55,7 +55,7 @@
 
       <!-- Order Summary Section -->
       <div class="w-full lg:w-1/3">
-        <PaymentMethods />
+        <PaymentMethods @update:paymentMethod="updatePaymentMethod" />
         <div class="border rounded-lg shadow-sm p-4 bg-white mt-4">
           <h2 class="text-xl font-bold mb-4 text-gray-800">Order Summary</h2>
           <div class="mb-4">
@@ -71,6 +71,7 @@
           <button
             class="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
             :disabled="selectedItems.length === 0"
+            @click="goToCheckout"
           >
             Checkout
           </button>
@@ -93,10 +94,11 @@ export default {
   },
   data() {
     return {
-      cartItems: [],
-      selectedItems: [], // Stores IDs of selected items
+      cartItems: [], // All cart items
+      selectedItems: [], // IDs of selected items
       currentPage: 1,
       itemsPerPage: 5,
+      paymentMethod: '', // Selected payment method
     }
   },
   computed: {
@@ -118,6 +120,9 @@ export default {
     },
   },
   methods: {
+    updatePaymentMethod(method) {
+      this.paymentMethod = method // Update selected payment method
+    },
     fetchCartItems() {
       const user = JSON.parse(localStorage.getItem('user'))
       if (!user || !user.userId) {
@@ -172,9 +177,22 @@ export default {
     prevPage() {
       if (this.currentPage > 1) this.currentPage--
     },
-    removeItem(itemId) {
-      this.cartItems = this.cartItems.filter((item) => item.id !== itemId)
-      this.selectedItems = this.selectedItems.filter((id) => id !== itemId)
+    async removeItem(itemId) {
+      await removeItemFromCart(itemId).then(() => {
+        this.cartItems = this.cartItems.filter((item) => item.id !== itemId)
+        this.selectedItems = this.selectedItems.filter((id) => id !== itemId)
+      })
+    },
+    goToCheckout() {
+      const selectedProducts = this.cartItems.filter((item) => this.selectedItems.includes(item.id))
+
+      this.$router.push({
+        name: 'checkout',
+        query: {
+          products: JSON.stringify(selectedProducts),
+          paymentMethod: this.paymentMethod,
+        },
+      })
     },
   },
   mounted() {

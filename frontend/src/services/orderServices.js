@@ -3,20 +3,23 @@ import { useToast } from 'vue-toastification'
 
 const api_url = 'http://localhost:8080'
 const toast = useToast()
-
-export const createOrder = async (userId, items, totalAmount, paymentMethod) => {
+/**
+ * Handles the checkout process by placing an order.
+ *
+ * @param {Object} orderData - The order details.
+ * @param {string} orderData.userId - The ID of the user.
+ * @param {string} orderData.addressId - The ID of the shipping address.
+ * @param {string} orderData.paymentMethod - The selected payment method.
+ *
+ * @returns {Promise<Object>} - The response from the server.
+ */
+export async function Checkout(orderData) {
   try {
-    const response = await axios.post(`${api_url}/orders`, {
-      userId,
-      items,
-      totalAmount,
-      paymentMethod,
-    }, { withCredentials: true })
-    toast.success('Order created successfully!')
-    return response.data
+    const response = await axios.post(`${api_url}/orders/checkout`, orderData)
+    return response.data // Return the response data for further processing in the UI
   } catch (error) {
-    toast.error(error.response ? error.response.data.message : 'Failed to create order')
-    throw error
+    console.error('Checkout error:', error.response?.data || error.message)
+    throw error.response?.data || { error: 'An error occurred during checkout.' }
   }
 }
 

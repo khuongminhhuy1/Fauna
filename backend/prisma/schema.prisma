@@ -23,12 +23,6 @@ enum OrderStatus {
   COMPLETED
   CANCELLED
 }
-
-enum PaymentMethod {
-  PAYPAL
-  CREDIT_CARD
-  CASH_ON_DELIVERY
-}
 model User {
   id         Int      @id @default(autoincrement())
   name       String?
@@ -111,10 +105,10 @@ model Orders {
   orderNumber  String        @unique
   totalAmount   Float
   status        OrderStatus  @default(PENDING)
-  paymentMethod PaymentMethod
+  paymentMethod String
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
-  User          User         @relation(fields: [userId], references: [id])
+  User          User         @relation(fields: [userId], references: [id])  
   orderItems    OrderItems[]
 
   @@index([userId])

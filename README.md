@@ -27,20 +27,25 @@ Fauna is designed to be a fully functional full-stack application that showcases
   - Vuex (for state management)
   - Vue Router
   - Axios (for API requests)
-  - Vuelidate (for form validation)
+  - Toast (For notification)
+ 
   
 - **Backend:**
   - Node.js
   - Express.js
-  - MongoDB (or your preferred database)
+  - MySQL
+  - Prisma ORM
+  - Bcrypt for Password Hashing
+  - Multer and cloudinary for file uploader
   - JWT Authentication for user login
+  - Cors 
 
 - **Development Tools:**
   - Webpack
   - Babel
   - ESLint (for linting)
   - Nodemon (for automatic server restarts)
-
+  - Prettier
 ## Features
 
 - **User Authentication**: Secure login and signup with JWT tokens.

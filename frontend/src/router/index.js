@@ -17,6 +17,7 @@ import OrdersPage from '@/components/Order/OrdersPage.vue'
 import UserAddress from '@/components/User/UserAddress.vue'
 import Checkout from '@/components/Payment/Checkout.vue'
 import OrderedPage from '@/components/Order/OrderedPage.vue'
+import ShowOrders from '@/components/Admin/Order/ShowOrders.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -99,25 +100,34 @@ const router = createRouter({
       name: '/admin',
       component: AdminDashboard,
       meta: { noHeader: false, requiresAuth: true, role: 'Admin', layout: 'admin' },
+      children: [
+        {
+          path: 'users',
+          name: 'admin-users',
+          component: ShowUsers,
+          meta: { noHeader: false, requiresAuth: true, role: 'Admin', layout: 'admin' },
+        },
+        {
+          path: 'categories',
+          name: 'admin-categories',
+          component: ShowCategory,
+          meta: { noHeader: false, requiresAuth: true, role: 'Admin', layout: 'admin' },
+        },
+        {
+          path: 'products',
+          name: 'admin-products',
+          component: ShowProduct,
+          meta: { noHeader: false, requiresAuth: true, role: 'Admin', layout: 'admin' },
+        },
+        {
+          path: 'orders',
+          name: 'admin-orders',
+          component: ShowOrders,
+          meta: { noHeader: false, requiresAuth: true, role: 'Admin', layout: 'admin' },
+        },
+      ],
     },
-    {
-      path: '/admin/users',
-      name: '/admin/users',
-      component: ShowUsers,
-      meta: { noHeader: false, requiresAuth: true, role: 'Admin', layout: 'admin' },
-    },
-    {
-      path: '/admin/categories',
-      name: '/admin/categories',
-      component: ShowCategory,
-      meta: { noHeader: false, requiresAuth: true, role: 'Admin', layout: 'admin' },
-    },
-    {
-      path: '/admin/products',
-      name: '/admin/products',
-      component: ShowProduct,
-      meta: { noHeader: false, requiresAuth: true, role: 'Admin', layout: 'admin' },
-    },
+
     {
       path: '/products',
       name: 'products',

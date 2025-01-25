@@ -23,6 +23,16 @@ export async function Checkout(orderData) {
   }
 }
 
+export const GetOrders = async () => {
+  try {
+    const response = await axios.get(`${api_url}/orders`, { withCredentials: true })
+    return response.data
+  } catch (error) {
+    toast.error(error.response ? error.response.data.message : 'Failed to fetch orders')
+    throw error
+  }
+}
+
 export const getOrdersByUser = async (userId) => {
   try {
     const response = await axios.get(`${api_url}/orders/${userId}`, { withCredentials: true })

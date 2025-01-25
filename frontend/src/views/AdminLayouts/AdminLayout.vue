@@ -6,22 +6,11 @@
     <!-- Main Content -->
     <div class="flex flex-grow h-full">
       <!-- Sidebar -->
-      <AdminSideBar
-        :isSidebarOpen="isSidebarOpen"
-        class="transition-all duration-300"
-        :class="[isSidebarOpen ? 'w-2/12' : 'w-0', 'md:w-2/12']"
-      />
+      <AdminSideBar :isSidebarOpen="isSidebarOpen" class="transition-all duration-300" />
 
-      <!-- Main Slot -->
-      <div
-        class="flex-grow p-4 transition-all duration-300"
-        :class="[isSidebarOpen ? 'w-10/12' : 'w-full', 'md:w-10/12']"
-      >
-        <div class="w-full flex flex-col justify-center items-center">
-          <div class="w-10/12">
-            <slot name="body"></slot>
-          </div>
-        </div>
+      <!-- Main Content Area -->
+      <div class="flex-grow p-4">
+        <router-view></router-view>
       </div>
     </div>
 
@@ -40,7 +29,7 @@ export default {
   components: { AdminHeader, AdminFooter, AdminSideBar },
   data() {
     return {
-      isSidebarOpen: false,
+      isSidebarOpen: true,
     }
   },
   methods: {
@@ -50,5 +39,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss"></style>

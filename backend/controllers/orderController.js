@@ -70,3 +70,16 @@ export async function Checkout(req, res) {
       .json({ error: "An error occurred during checkout." });
   }
 }
+export async function GetOrders(req, res) {
+
+  try {
+    const orders = await prisma.orders.findMany({
+      include: { orderItems: { include: { Product: true } } },
+    });
+
+    return res.status(200).json(orders);
+  } catch (error) {
+    console.error("GetOrders error:", error);
+    return res.status(500).json({ error: "An error occurred." });
+  }
+}
